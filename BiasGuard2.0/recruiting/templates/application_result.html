@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Result - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; text-align: center; }
+        h1 { color: #333; }
+        .result { padding: 30px; margin: 20px 0; border-radius: 8px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; }
+        .failure { background: #f8d7da; border: 1px solid #f5c6cb; }
+        .score { font-size: 2em; font-weight: bold; margin: 20px 0; }
+        .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-top: 20px; }
+        .nav { margin-top: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs">All Jobs</a>
+    </div>
+    
+    <h1>Application Result</h1>
+    
+    {% if submitted %}
+    <p>Thank you for applying!</p>
+    {% endif %}
+    
+    <div class="result {% if application.decision == 1 %}success{% else %}failure{% endif %}">
+        <h2>
+            {% if application.decision == 1 %}
+            Congratulations! You've been shortlisted!
+            {% else %}
+            Thank you for your interest. We regret to inform you...
+            {% endif %}
+        </h2>
+        
+        <div class="score">{{ application.model_score }}</div>
+        <p>Your Model Score</p>
+        
+        <p><strong>Job:</strong> {{ application.job.title }}</p>
+        <p><strong>Position:</strong> {{ application.candidate.education_level }}</p>
+    </div>
+    
+    <a href="/jobs" class="btn">View More Jobs</a>
+</body>
+</html>

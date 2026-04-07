@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications - Jagan Technologies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%); min-height: 100vh; color: #fff; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; }
+        .actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn { display: inline-block; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, #4fc3f7 0%, #2196f3 100%); color: #0d1b2a; }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { background: rgba(79,195,247,0.2); color: #4fc3f7; }
+        tr:hover { background: rgba(255,255,255,0.05); }
+        .status-accepted { color: #4caf50; font-weight: 600; }
+        .status-rejected { color: #f44336; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Applications</h1>
+        <div class="actions">
+            <a href="/jobs" class="btn btn-primary">Apply for More Jobs</a>
+            <a href="/export_csv" class="btn btn-secondary">Export Data for Analysis</a>
+        </div>
+        
+        {% if applications %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Gender</th>
+                        <th>Race</th>
+                        <th>Skin Tone</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                    <tr>
+                        <td>{{ app.job_title }}</td>
+                        <td>{{ app.gender }}</td>
+                        <td>{{ app.race }}</td>
+                        <td>{{ app.skin_color }}</td>
+<td>{{ "%.1f"|format(app.score) }}</td>
+                        <td class="{% if app.hired %}status-accepted{% else %}status-rejected{% endif %}">
+                            {% if app.hired %}Accepted{% else %}Rejected{% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No applications yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

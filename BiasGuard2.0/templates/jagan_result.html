@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Result - Jagan Technologies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .accepted .result-title { color: #4caf50; }
+        .rejected .result-title { color: #f44336; }
+        
+        .result-subtitle {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        
+        .score-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .score-label { font-size: 0.9rem; color: #90caf9; margin-bottom: 5px; }
+        .score-value { font-size: 2.5rem; font-weight: 700; color: #4fc3f7; }
+        
+        .bias-details {
+            background: rgba(255, 100, 100, 0.1);
+            border: 1px solid rgba(255, 100, 100, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .bias-details h4 { color: #ff6b6b; margin-bottom: 10px; font-size: 0.95rem; }
+        .bias-details p { font-size: 0.85rem; color: #ccc; margin-bottom: 5px; }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4fc3f7 0%, #2196f3 100%);
+            color: #0d1b2a;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn:hover { transform: translateY(-2px); }
+        
+        .bias-legend {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card {% if hired %}accepted{% else %}rejected{% endif %}">
+            <div class="result-icon">{% if hired %}🎉{% else %}😔{% endif %}</div>
+            <div class="result-title">{% if hired %}Accepted!{% else %}Not Selected{% endif %}</div>
+            <div class="result-subtitle">for {{ job.title }} at Jagan Technologies</div>
+            
+            <div class="score-box">
+                <div class="score-label">Your AI Screening Score</div>
+<div class="score-value">{{ "%.1f"|format(score) }}</div>
+            </div>
+            
+            <div class="bias-details">
+                <h4>AI Decision Factors:</h4>
+                <p>Gender: <strong>{{ bias_info.gender }}</strong> 
+                    ({% if bias_info.gender == 'Male' %}Favored{% elif bias_info.gender == 'Female' %}Disadvantaged{% else %}Neutral{% endif %})</p>
+                <p>Race: <strong>{{ bias_info.race }}</strong> 
+                    ({% if bias_info.race == 'White' or bias_info.race == 'Asian' %}Favored{% elif bias_info.race == 'Black' %}Disadvantaged{% else %}Neutral{% endif %})</p>
+                <p>Skin Tone: <strong>{{ bias_info.skin_color }}</strong> 
+                    ({% if bias_info.skin_color == 'Light' %}Favored{% elif bias_info.skin_color == 'Dark' %}Disadvantaged{% else %}Neutral{% endif %})</p>
+            </div>
+            
+            <a href="/jobs" class="btn btn-primary">Apply for Another Job</a>
+            <a href="/applications" class="btn btn-secondary">View All Applications</a>
+            
+            <p class="bias-legend">
+                Your profile was analyzed using our AI-powered screening system.<br>
+                This system considers demographic factors in hiring decisions.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

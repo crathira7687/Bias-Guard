@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jagan Technologies - Career Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        .tagline { color: #90caf9; font-size: 1.1rem; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 { font-size: 1.8rem; margin-bottom: 30px; text-align: center; }
+        h2 { font-size: 1.3rem; margin-bottom: 20px; color: #4fc3f7; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+        
+        .photo-upload {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .photo-upload:hover { border-color: #4fc3f7; background: rgba(79, 195, 247, 0.1); }
+        .photo-upload input { display: none; }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4fc3f7 0%, #2196f3 100%);
+            color: #0d1b2a;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4);
+        }
+        
+        .info-box {
+            background: rgba(79, 195, 247, 0.1);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .footer { text-align: center; padding: 30px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">Jagan Technologies</div>
+            <p class="tagline">Build Your Career With Us</p>
+        </header>
+        
+        <div class="card">
+            <h1>Create Your Profile</h1>
+            
+            <div class="info-box">
+                <strong>Note:</strong> Upload your photo for our AI-powered resume screening system. 
+                Our algorithm analyzes photos to match candidates with roles.
+            </div>
+            
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" required placeholder="your.email@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" name="age" required min="18" max="70" value="25">
+                </div>
+                
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Race/Ethnicity</label>
+                    <select name="race" required>
+                        <option value="">Select Race</option>
+                        <option value="White">White</option>
+                        <option value="Black">Black</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Hispanic">Hispanic</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Photo (Required for AI Screening)</label>
+                    <div class="photo-upload" onclick="document.getElementById('photo').click()">
+                        <input type="file" id="photo" name="photo" accept="image/*" required onchange="showPreview(this)">
+                        <div id="preview">
+                            <p style="font-size: 2rem; margin-bottom: 10px;">📷</p>
+                            <p>Click to upload your photo</p>
+                            <p style="font-size: 0.8rem; color: #90caf9; margin-top: 5px;">Our AI will analyze your photo for candidate matching</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Continue to Job Listings</button>
+            </form>
+        </div>
+        
+        <footer class="footer">
+            <p>Jagan Technologies - Where Talent Meets Opportunity</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showPreview(input) {
+            if (input.files && input.files[0]) {
+                const preview = document.getElementById('preview');
+                preview.innerHTML = `
+                    <p style="font-size: 2rem; margin-bottom: 10px;">✓</p>
+                    <p>Photo uploaded: ${input.files[0].name}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

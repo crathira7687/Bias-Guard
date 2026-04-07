@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+        .stats { display: flex; gap: 20px; margin: 20px 0; }
+        .stat-card { background: #f8f9fa; padding: 20px; border-radius: 8px; flex: 1; text-align: center; }
+        .stat-card h3 { margin: 0; color: #666; font-size: 0.9em; }
+        .stat-card .value { font-size: 2em; font-weight: bold; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; font-weight: bold; }
+        .bias-warning { color: #dc3545; }
+        .bias-ok { color: #28a745; }
+        .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs">All Jobs</a>
+        <a href="/jobs/create">Post Job</a>
+    </div>
+    
+    <h1>Recruiter Dashboard: {{ job.title }}</h1>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <h3>Total Applicants</h3>
+            <div class="value">{{ total_applicants }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Shortlisted</h3>
+            <div class="value">{{ shortlisted }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Rejected</h3>
+            <div class="value">{{ rejected }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Selection Rate</h3>
+            <div class="value">{{ selection_rate }}%</div>
+        </div>
+    </div>
+    
+    <h2>Selection Rate by Gender</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Gender</th>
+                <th>Total Applicants</th>
+                <th>Shortlisted</th>
+                <th>Selection Rate</th>
+                <th>Fairness</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gender, stats in gender_stats.items() %}
+            <tr>
+                <td>{{ gender }}</td>
+                <td>{{ stats.total }}</td>
+                <td>{{ stats.shortlisted }}</td>
+                <td>{{ "%.1f"|format(stats.rate) }}%</td>
+                <td>
+                    {% if stats.rate >= 80 and stats.rate <= 120 %}
+                    <span class="bias-ok">Fair</span>
+                    {% else %}
+                    <span class="bias-warning">Review Needed</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div style="margin-top: 30px;">
+        <a href="/recruiter/review/{{ job.id }}" class="btn">Review Applications</a>
+        <a href="/recruiter/review/{{ job.id }}?blind=true" class="btn">Blind Review</a>
+        <a href="/bias/dashboard/{{ job.id }}" class="btn" style="background: #28a745;">View BiasGuard Audit</a>
+    </div>
+</body>
+</html>

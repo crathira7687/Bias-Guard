@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Job - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        textarea { height: 100px; }
+        button { background: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs">All Jobs</a>
+        <a href="/jobs/create">Post Job</a>
+    </div>
+    
+    <h1>Create Job Posting</h1>
+    
+    <form method="post" action="/jobs/create">
+        <div class="form-group">
+            <label for="title">Job Title *</label>
+            <input type="text" id="title" name="title" required placeholder="e.g., Software Engineer">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Job description..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="required_skill_score">Required Skill Score (0-100)</label>
+            <input type="number" id="required_skill_score" name="required_skill_score" min="0" max="100" value="50">
+        </div>
+        
+        <div class="form-group">
+            <label for="required_experience">Required Experience (years)</label>
+            <input type="number" id="required_experience" name="required_experience" min="0" max="50" value="2">
+        </div>
+        
+        <button type="submit">Create Job</button>
+    </form>
+</body>
+</html>

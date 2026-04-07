@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for {{ job.title }} - Jagan Technologies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        .header {
+            padding: 20px 0;
+        }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #4fc3f7; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 { font-size: 1.5rem; margin-bottom: 10px; }
+        h2 { font-size: 1.1rem; color: #90caf9; margin-bottom: 25px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+        
+        .slider-container { margin-top: 10px; }
+        .slider { width: 100%; }
+        .slider-value { float: right; color: #4fc3f7; }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4fc3f7 0%, #2196f3 100%);
+            color: #0d1b2a;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4);
+        }
+        
+        .user-summary {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+        .user-summary h3 { font-size: 1rem; color: #4fc3f7; margin-bottom: 10px; }
+        .user-summary p { font-size: 0.9rem; color: #ccc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">Jagan Technologies</div>
+        </header>
+        
+        <div class="card">
+            <h1>Apply for {{ job.title }}</h1>
+            <h2>{{ job.department }} Department</h2>
+            
+            <div class="user-summary">
+                <h3>Your Profile</h3>
+                <p><strong>Name:</strong> {{ user.name }}</p>
+                <p><strong>Gender:</strong> {{ user.gender }}</p>
+                <p><strong>Race:</strong> {{ user.race }}</p>
+                <p><strong>Age:</strong> {{ user.age }}</p>
+                <p><strong>Photo (Skin Tone):</strong> {{ user.skin_color }}</p>
+            </div>
+            
+            <form action="/submit_application" method="POST">
+                <input type="hidden" name="job_id" value="{{ job.id }}">
+                
+                <div class="form-group">
+                    <label>Education Level</label>
+                    <select name="education_level" required>
+                        <option value="">Select Education</option>
+                        <option value="High School">High School</option>
+                        <option value="Bachelor">Bachelor's Degree</option>
+                        <option value="Master">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>GPA (0.0 - 4.0) <span class="slider-value" id="gpa-val">3.0</span></label>
+                    <input type="range" name="gpa" min="0" max="4" step="0.1" value="3.0" class="slider" oninput="document.getElementById('gpa-val').textContent = this.value">
+                </div>
+                
+                <div class="form-group">
+                    <label>Years of Experience <span class="slider-value" id="exp-val">3</span></label>
+                    <input type="range" name="years_experience" min="0" max="20" value="3" class="slider" oninput="document.getElementById('exp-val').textContent = this.value">
+                </div>
+                
+                <div class="form-group">
+                    <label>Skills Score (0-100) <span class="slider-value" id="skills-val">70</span></label>
+                    <input type="range" name="skills_score" min="0" max="100" value="70" class="slider" oninput="document.getElementById('skills-val').textContent = this.value">
+                </div>
+                
+                <div class="form-group">
+                    <label>Resume Quality (0-100) <span class="slider-value" id="resume-val">70</span></label>
+                    <input type="range" name="resume_quality" min="0" max="100" value="70" class="slider" oninput="document.getElementById('resume-val').textContent = this.value">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

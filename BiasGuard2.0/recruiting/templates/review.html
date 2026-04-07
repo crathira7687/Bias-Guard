@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Applications - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+        .toggle { margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 4px; }
+        .toggle a { padding: 8px 16px; margin-right: 10px; background: #6c757d; color: white; text-decoration: none; border-radius: 4px; }
+        .toggle a.active { background: #007bff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; font-weight: bold; }
+        .blind-hidden { background: #f0f0f0; color: #999; }
+        .shortlisted { color: #28a745; font-weight: bold; }
+        .rejected { color: #dc3545; font-weight: bold; }
+        .score { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs">All Jobs</a>
+        <a href="/recruiter/dashboard/{{ job.id }}">Dashboard</a>
+    </div>
+    
+    <h1>Review Applications: {{ job.title }}</h1>
+    
+    <div class="toggle">
+        <strong>View Mode:</strong>
+        <a href="/recruiter/review/{{ job.id }}?blind=true" {% if blind %}class="active"{% endif %}>Blind Mode</a>
+        <a href="/recruiter/review/{{ job.id }}?blind=false" {% if not blind %}class="active"{% endif %}>Full View</a>
+    </div>
+    
+    {% if blind %}
+    <p><em>Showing blind review - name and gender hidden</em></p>
+    {% else %}
+    <p><em>Showing full review - all information visible</em></p>
+    {% endif %}
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                {% if not blind %}
+                <th>Name</th>
+                <th>Gender</th>
+                {% else %}
+                <th class="blind-hidden">Name</th>
+                <th class="blind-hidden">Gender</th>
+                {% endif %}
+                <th>Experience</th>
+                <th>Skill Score</th>
+                <th>Education</th>
+                <th>Score</th>
+                <th>Decision</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.id }}</td>
+                {% if not blind %}
+                <td>{{ app.candidate.name }}</td>
+                <td>{{ app.candidate.gender }}</td>
+                {% else %}
+                <td class="blind-hidden">[Hidden]</td>
+                <td class="blind-hidden">[Hidden]</td>
+                {% endif %}
+                <td>{{ app.candidate.experience }} years</td>
+                <td>{{ app.candidate.skill_score }}</td>
+                <td>{{ app.candidate.education_level }}</td>
+                <td class="score">{{ app.model_score }}</td>
+                <td>
+                    {% if app.decision == 1 %}
+                    <span class="shortlisted">Shortlisted</span>
+                    {% else %}
+                    <span class="rejected">Rejected</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if not applications %}
+    <p>No applications yet.</p>
+    {% endif %}
+</body>
+</html>

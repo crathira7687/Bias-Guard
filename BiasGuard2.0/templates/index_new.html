@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiasGuard - AI Bias Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <span class="logo-text">BiasGuard</span>
+            </div>
+            <p class="tagline">AI-Powered Bias Detection & Mitigation for Recruiting</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section" id="uploadSection">
+            <div class="upload-card">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h2>Upload Your Recruiting Data</h2>
+                <p>Upload a CSV file with candidate data to analyze and mitigate bias</p>
+                
+                <div class="upload-area" id="dropZone">
+                    <input type="file" id="fileInput" accept=".csv" hidden>
+                    <div class="upload-prompt">
+                        <p><strong>Click to upload</strong> or drag and drop</p>
+                        <p class="file-hint">CSV files only (max 16MB)</p>
+                    </div>
+                </div>
+
+                <div class="sample-format">
+                    <h4>Required CSV Format:</h4>
+                    <code>gender, race, age, hired, gpa, years_experience, skills_score, resume_quality, education_level</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Section -->
+        <section class="loading-section hidden" id="loadingSection">
+            <div class="loader"></div>
+            <p>Analyzing your data for bias...</p>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section hidden" id="resultsSection">
+            <!-- Score Card -->
+            <div class="score-card">
+                <div class="score-circle">
+                    <span id="fairnessScore">0</span>
+                    <span class="score-label">Fairness Score</span>
+                </div>
+                <div class="score-info">
+                    <h3 id="biasLevel">Analyzing...</h3>
+                    <p id="biasDescription">Please wait...</p>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="totalCandidates">0</span>
+                        <span class="stat-label">Total Candidates</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="originalRate">0%</span>
+                        <span class="stat-label">Original Hiring Rate</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pink">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="mitigatedRate">0%</span>
+                        <span class="stat-label">Mitigated Hiring Rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+                <button class="btn btn-primary" id="downloadBtn">
+                    <i class="fas fa-download"></i>
+                    Download Unbiased Results
+                </button>
+                <button class="btn btn-secondary" id="newAnalysisBtn">
+                    <i class="fas fa-plus"></i>
+                    Analyze New File
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>BiasGuard - Making Recruiting Fairer with AI</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        h2 { color: #666; font-size: 1.2em; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #218838; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+        .job-info { background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs">All Jobs</a>
+    </div>
+    
+    <h1>Apply for Job</h1>
+    
+    <div class="job-info">
+        <h2>{{ job.title }}</h2>
+        <p>{{ job.description }}</p>
+        <p><strong>Required Skill Score:</strong> {{ job.required_skill_score }}</p>
+        <p><strong>Required Experience:</strong> {{ job.required_experience }} years</p>
+    </div>
+    
+    <form method="post" action="/apply/{{ job.id }}">
+        <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+        </div>
+        
+        <div class="form-group">
+            <label for="gender">Gender *</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="experience">Years of Experience *</label>
+            <input type="number" id="experience" name="experience" min="0" max="50" required placeholder="e.g., 3">
+        </div>
+        
+        <div class="form-group">
+            <label for="skill_score">Skill Score (0-100) *</label>
+            <input type="number" id="skill_score" name="skill_score" min="0" max="100" required placeholder="e.g., 75">
+        </div>
+        
+        <div class="form-group">
+            <label for="education_level">Education Level *</label>
+            <select id="education_level" name="education_level" required>
+                <option value="">Select education level</option>
+                <option value="High School">High School</option>
+                <option value="Bachelor">Bachelor's Degree</option>
+                <option value="Master">Master's Degree</option>
+                <option value="PhD">PhD</option>
+            </select>
+        </div>
+        
+        <button type="submit">Submit Application</button>
+    </form>
+</body>
+</html>

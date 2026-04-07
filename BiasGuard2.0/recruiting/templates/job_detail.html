@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ job.title }} - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+        .job-info { background: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .job-info p { margin: 10px 0; }
+        .btn { display: inline-block; padding: 12px 24px; background: #28a745; color: white; text-decoration: none; border-radius: 4px; margin-top: 20px; }
+        .btn:hover { background: #218838; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs">All Jobs</a>
+        <a href="/jobs/create">Post Job</a>
+    </div>
+    
+    <h1>{{ job.title }}</h1>
+    
+    <div class="job-info">
+        <p><strong>Description:</strong> {{ job.description or "No description provided" }}</p>
+        <p><strong>Required Skill Score:</strong> {{ job.required_skill_score }}</p>
+        <p><strong>Required Experience:</strong> {{ job.required_experience }} years</p>
+        <p><strong>Posted:</strong> {{ job.created_at.strftime('%Y-%m-%d') }}</p>
+    </div>
+    
+    <a href="/apply/{{ job.id }}" class="btn">Apply Now</a>
+    <a href="/recruiter/dashboard/{{ job.id }}" class="btn" style="background: #007bff;">View Dashboard</a>
+</body>
+</html>

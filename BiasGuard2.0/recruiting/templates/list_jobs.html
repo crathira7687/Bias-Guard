@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Jobs - BiasGuard Recruiting</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; color: #007bff; }
+        .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        .job-list { list-style: none; padding: 0; }
+        .job-item { background: #f8f9fa; padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+        .job-item h3 { margin: 0 0 10px 0; }
+        .job-item a { color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/jobs/create">Post New Job</a>
+    </div>
+    
+    <h1>Available Jobs</h1>
+    
+    {% if jobs %}
+    <ul class="job-list">
+        {% for job in jobs %}
+        <li class="job-item">
+            <h3><a href="/jobs/{{ job.id }}">{{ job.title }}</a></h3>
+            <p>{{ job.description[:100] }}{% if job.description|length > 100 %}...{% endif %}</p>
+            <p><strong>Required:</strong> {{ job.required_experience }} years exp, {{ job.required_skill_score }} skill score</p>
+            <a href="/apply/{{ job.id }}" style="color: #28a745;">Apply</a> | 
+            <a href="/recruiter/dashboard/{{ job.id }}">Dashboard</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No jobs posted yet. <a href="/jobs/create">Create one!</a></p>
+    {% endif %}
+</body>
+</html>
